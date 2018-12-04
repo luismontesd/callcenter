@@ -65,9 +65,9 @@ app.post("/loginAgent", function(req, res){
 app.listen(3003, ( ) => {
     console.log("Listening on 3003")
 })
-//khkhhkhkkh
+//kh
 //index-call
-app.get('/tablaindexcall', function(req,res){
+app.get('/index-call', function(req,res){
     var query = "SELECT * FROM deudores"
     conn.query(query, function(err,results){
         if(err){
