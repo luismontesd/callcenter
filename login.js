@@ -65,3 +65,18 @@ app.post("/loginAgent", function(req, res){
 app.listen(3003, ( ) => {
     console.log("Listening on 3003")
 })
+
+//index-call
+app.get('/tablaindexcall', function(req,res){
+    var query = "SELECT * FROM deudores"
+    conn.query(query, function(err,results){
+        if(err){
+            res.send({
+                "Message": "Error"
+            })
+        }else{
+            console.log("Respuesta exitosa")
+            res.send(results)
+        }
+    })
+})
