@@ -59,13 +59,7 @@ app.post("/loginAgent", function(req, res){
     })
 })
 
-//Cerrar sesion
-//bsdkhfkjahffkjashdkjhasdkjhaskdjhaskjh
 
-app.listen(3003, ( ) => {
-    console.log("Listening on 3003")
-})
-//kh
 //index-call
 app.get('/index-call', function(req,res){
     var query = "SELECT * FROM deudores"
@@ -79,4 +73,10 @@ app.get('/index-call', function(req,res){
             res.send(results)
         }
     })
+})
+
+//Cerrar sesion
+
+app.listen(3003, ( ) => {
+    console.log("Listening on 3003")
 })
