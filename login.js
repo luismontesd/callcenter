@@ -30,8 +30,15 @@ app.get('/', function(req,res){
     })
 })
 
+app.post('/loginAdmin', function(req,res){
+    var correo = req.body.email
+    var contrasena = req.body.password
+
+    var query = "SELECT * FROM agente WHERE nombres"
+})
+
 //Inicio de sesion
-app.post("/login", function(req, res){
+app.post("/loginAgent", function(req, res){
     var correo = req.body.email
     var contrasena = req.body.password
     //var query = "SELECT * FROM agentes WHERE correo = '" + correo + "' AND contrasena = '" + password + "'"
