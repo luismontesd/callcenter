@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
-const morgan = morgan()
+//const morgan = morgan()
 const mysql = require('mysql')
 const routes = require('./routes')
-const http = require('http')
+//const http = require('http')
 const path = require('path')
 
-var path = __dirname + '/views/';
+//var path = __dirname + '/views/';
 
 const conn = mysql.createConnection({
     host: 'localhost',
@@ -14,14 +14,29 @@ const conn = mysql.createConnection({
     database: 'callcenter'
 })
 
-app.use(morgan('combined'))
+//app.use(morgan('combined'))
+
+app.get('/', function(req,res){
+    var query = "SELECT * FROM clientes"
+    conn.query(query, function(err,results){
+        if(err){
+            res.send({
+                "Message": "Error"
+            })
+        }else{
+            console.log("Respuesta exitosa")
+            res.send(results)
+        }
+    })
+})
 
 //Inicio de sesion
-app.post("/login", (req, res) => {
+app.post("/login", function(req, res){
     var correo = req.body.email
     var contrasena = req.body.password
-    var query = "SELECT * FROM agentes WHERE correo = '" + correo + "' AND contrasena = '" + password + "'"
-    conn.query(query, function(err,res){
+    //var query = "SELECT * FROM agentes WHERE correo = '" + correo + "' AND contrasena = '" + password + "'"
+    var query = "SELECT * FROM agente"
+    conn.query(query, function(err){
         if(err){
             res.send({
                 "code": 400,
@@ -33,13 +48,13 @@ app.post("/login", (req, res) => {
                 "message": "Inicio de sesion exitoso"
             })
         }
-        res.redirect("/deudores")
+        //res.redirect("/deudores")
     })
 })
 
 //Cerrar sesion
 
 
-app.listen(3003, ( )=>{
+app.listen(3003, ( ) => {
     console.log("Listening on 3003")
 })
