@@ -107,10 +107,10 @@
   </table>
   <a href="planPago.php"><button class="btn btn-outline-success my-2 my-sm-0 btned" type="submit">Editar</button></a>
 </div>
-  <div class="tabla-com">
+  <div class="tabla-com"id="coment">
   <h3>Comentarios</h3>
-  <div class="scroll tam-com">
-  <table class="table no-seleccionable" id="coment">
+  <div class="scroll tam-com" >
+  <table class="table no-seleccionable" >
      <thead>
     <tr>
       <th scope="col">Fecha</th>
@@ -125,8 +125,8 @@
   </tbody>
 </table>
 </div>
-  <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-  <button class="btn btn-outline-success my-2 my-sm-0 btned" type="submit">Agregar</button>
+  <textarea class="form-control" id="exampleTextarea" rows="3" v-model="newcoment"></textarea>
+  <button class="btn btn-outline-success my-2 my-sm-0 btned" v-on:click="addcoment()" type="submit">Agregar</button>
 </div>
 <div class="tabla-tel">
   <h3>Otros teléfonos</h3>
@@ -221,6 +221,10 @@ new Vue({
       this.$http.get(urlUsercoment).then(function(response){
         this.list = response.data;
       });
+    },
+    addcoment: function() {
+      this.list.push({ Fecha: '2018-12-06' , Comentarios: this.newcoment, IdDeudor: this.iduser});
+      this.newcoment = '';
     }
 
   }
