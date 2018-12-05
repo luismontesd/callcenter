@@ -37,7 +37,7 @@
       <th scope="col">EstatusT</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tabladeu">
     <tr onclick="location='deudor.html'">
       <th scope="row">1532545</th>
       <td>ARNALDO  MANUEL  ALVARENGA  ALVARENGA </a></td>
@@ -50,5 +50,28 @@
   </tbody>
 </table>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    function getTimeAJAX() {
+
+//GUARDAMOS EN UNA VARIABLE EL RESULTADO DE LA CONSULTA AJAX    
+
+var time = $.ajax({
+
+    url: '/localhost:3003/index-call', //indicamos la ruta donde se genera la hora
+        dataType: 'JSON',//indicamos que es de tipo texto plano
+        async: false     //ponemos el parámetro asyn a falso
+}).responseText;
+
+//actualizamos el div que nos mostrará la hora actual
+document.getElementById("tabladeu").innerHTML = time;
+}
+
+//con esta funcion llamamos a la función getTimeAJAX cada segundo para actualizar el div que mostrará la hora
+setInterval(getTimeAJAX,1000);
+
+    </script>
+
 </body>
 </html>
