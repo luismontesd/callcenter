@@ -41,7 +41,7 @@
   <tr  v-for='item in list' v-on:click="pasarvariable(item.ID)">
       <th scope="row" id="iddeu" v-bind:value="item.ID" >{{ item.ID }}</th>
       <td>{{ item.Nombre }}</td>
-      <td>4564568658</td>
+      <td>{{ item.Telefono }}</td>
       <td>{{ item.RFC }}</td>
       <td>{{ item.Sucursal }}</td>
       <td>{{ item.Estado }}</td>
@@ -70,7 +70,7 @@ new Vue({
     },
     pasarvariable: function(valor){
       console.log(valor);
-      location.href="deudor.html?id="+valor+"";
+      location.href="deudor.php?id="+valor+"";
     }
 
   }

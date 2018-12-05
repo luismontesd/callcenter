@@ -62,7 +62,7 @@ app.post("/loginAgent", function(req, res){
 
 //index-call
 app.get('/index-call', function(req,res){
-    var query = "SELECT * FROM deudores"
+    var query = "SELECT dor.*, das.* FROM deudores dor, deudas das WHERE dor.ID = das.IdDeudor;"
     conn.query(query, function(err,results){
         if(err){
             res.send({
@@ -74,7 +74,48 @@ app.get('/index-call', function(req,res){
         }
     })
 })
-
+//index-call telefoonos
+app.get('/index-call-tel', function(req,res){
+    var query = "SELECT * FROM histtelefono"
+    conn.query(query, function(err,results){
+        if(err){
+            res.send({
+                "Message": "Error"
+            })
+        }else{
+            console.log("Respuesta exitosa")
+            res.send(results)
+        }
+    })
+})
+//index-call planpagos
+app.get('/index-call-ppagos', function(req,res){
+    var query = "SELECT * FROM planpago"
+    conn.query(query, function(err,results){
+        if(err){
+            res.send({
+                "Message": "Error"
+            })
+        }else{
+            console.log("Respuesta exitosa")
+            res.send(results)
+        }
+    })
+})
+//index-call comentarios
+app.get('/index-call-coment', function(req,res){
+    var query = "SELECT * FROM  capturasesion"
+    conn.query(query, function(err,results){
+        if(err){
+            res.send({
+                "Message": "Error"
+            })
+        }else{
+            console.log("Respuesta exitosa")
+            res.send(results)
+        }
+    })
+})
 //Cerrar sesion
 
 app.listen(3003, ( ) => {

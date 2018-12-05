@@ -21,8 +21,8 @@
 </nav>
 <nav aria-label="breadcrumb ">
     <ol class="breadcrumb no-seleccionable">
-      <li class="breadcrumb-item" aria-current="page"><a href="index-call.html">Deudores</a></li>
-      <li class="breadcrumb-item " aria-current="page"><a href="deudor.html">nombre del deudor</a></li>
+      <li class="breadcrumb-item" aria-current="page">Deudores</li>
+      <li class="breadcrumb-item " aria-current="page">nombre del deudor</li>
       <li class="breadcrumb-item active " aria-current="page">Plan de pagos</li>
     </ol>
 </nav>
@@ -44,7 +44,7 @@
   <option>11 meses</option>
   <option>12 meses</option>
   </select>
-  <h4>Interes</h4><h5>5%</h5>
+  <h4>Interes</h4><h5>16%</h5>
   <h4>Monto mensual</h4><h5>$ 999</h5>
   <button class="btn btn-outline-success my-2 my-sm-0 isq" type="submit">Guardar</button>
 </div>
