@@ -38,9 +38,9 @@
     </tr>
   </thead>
   <tbody id="tabladeu">
-    <tr onclick="location='deudor.html'" v-for="item in list">
-      <th scope="row" >{{ item.ID }}</th>
-      <td>{{ item.Nombre }}</a></td>
+  <tr onclick="pasarvariable()" v-for='item in list'>
+      <th scope="row" id="iddeu">{{ item.ID }}</th>
+      <td>{{ item.Nombre }}</td>
       <td>4564568658</td>
       <td>{{ item.RFC }}</td>
       <td>{{ item.Sucursal }}</td>
@@ -70,6 +70,12 @@ new Vue({
     }
   }
 });
+function pasarvariable()
+{
+  valor= document.getElementById("iddeu");
+  alert(valor);
+//location.href="deudor.html?id="+valor+"";
+}
 </script>
 </body>
 </html>
