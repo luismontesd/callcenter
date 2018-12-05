@@ -65,11 +65,11 @@
     </tr>
     <tr>
       <td scope="col">Saldo:</td>
-      <td>{{item.Saldo}}</td>
+      <td>$ {{item.Saldo}}</td>
     </tr>
     <tr>
       <td scope="col">Saldo anterior:</td>
-      <td>{{item.SaldoAnterior}}</td>
+      <td>$ {{item.SaldoAnterior}}</td>
     </tr>
     <tr>
       <td scope="col">Moratorios:</td>
@@ -77,7 +77,7 @@
     </tr>
     <tr>
       <td scope="col">Saldo total:</td>
-      <td>{{item.SaldoTotal}}</td>
+      <td>$ {{item.SaldoTotal}}</td>
     </tr>
   </tbody>
 </table>
@@ -97,10 +97,10 @@
   </thead>
   <tbody v-for='ppitem in list' v-if="ppitem.IdDeudor == iduser">
     <tr>
-      <td>{{ppitem.Monto}}</td>
+      <td>$ {{ppitem.Monto}}</td>
       <td>{{ppitem.Plazo}}</td>
       <td>16%</td>
-      <td>{{montomensual(ppitem.Monto,ppitem.Plazo)}}</td>
+      <td>$ {{montomensual(ppitem.Monto,ppitem.Plazo)}}</td>
       <td>{{ppitem.Fecha}}</td>
     </tr>
   </tbody>
@@ -202,7 +202,7 @@ new Vue({
       });
     },
     montomensual: function(monto, plazo){
-      return (monto/plazo)
+      return ((monto/plazo)*.16)
     }
 
   }
