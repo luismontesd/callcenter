@@ -38,14 +38,14 @@
     </tr>
   </thead>
   <tbody id="tabladeu">
-    <tr onclick="location='deudor.html'">
-      <th scope="row" v-for="item in list">{{ item.ID }}</th>
-      <td>ARNALDO  MANUEL  ALVARENGA  ALVARENGA </a></td>
+    <tr onclick="location='deudor.html'" v-for="item in list">
+      <th scope="row" >{{ item.ID }}</th>
+      <td>{{ item.Nombre }}</a></td>
       <td>4564568658</td>
-      <td>25</td>
-      <td>AAAA711227M65</td>
-      <td>A</td>
-      <td>A</td>
+      <td>{{ item.RFC }}</td>
+      <td>{{ item.Sucursal }}</td>
+      <td>{{ item.Estado }}</td>
+      <td>{{ item.StatusT }}</td>
     </tr>
   </tbody>
 </table>
