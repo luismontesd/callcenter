@@ -116,6 +116,21 @@ app.get('/index-call-coment', function(req,res){
         }
     })
 })
+
+//reporte
+app.get('/reporte', function(req,res){
+    var query = "SELECT caps.*, pp.*, ag.* FROM capturasesion caps,planpago pp, agente ag WHERE caps.IdDeudor = pp.IdDeudor and caps.IdAgente = ag.IdAgente AND caps.Fecha= '2015-12-07';"
+    conn.query(query, function(err,results){
+        if(err){
+            res.send({
+                "Message": "Error"
+            })
+        }else{
+            console.log("Respuesta exitosa")
+            res.send(results)
+        }
+    })
+})
 //Cerrar sesion
 
 app.listen(3003, ( ) => {

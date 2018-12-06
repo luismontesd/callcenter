@@ -179,7 +179,42 @@ margin: 10px;
 .btn-bread{
 	margin-top: 40px;
 }
-/*mapa++++++++++++++++++++++++++*/
+.contreporte{
+	width: 80%;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+}
+.contreporte > h1{
+	text-align: center;
+}
+@media print{
+	.oculto-impresion, .oculto-impresion *{
+	  display: none !important;
+	}
+  }
+.btn-imp{
+	float: right;
+	margin-right: 150px;
+}
+.flo-left{
+	float: left;
+}
+.idDeudas{
+	margin-top: 70px;
+}
+.rep-barra{
+	background-color: rgb(70, 63, 63);
+	color:white;
+	width: 100%;
+	height: 40px;
+}
+.esp-h1-rep{
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+/*++++++++++++++++++++++++++mapa++++++++++++++++++++++++++*/
  #description {
         font-family: Roboto;
         font-size: 15px;
