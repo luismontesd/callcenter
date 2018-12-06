@@ -29,7 +29,7 @@
   </nav>
 </div>
   <div class="btn-bread" id="reporte">
-  <button class="btn btn-outline-success my-2 my-sm-0 " v-on:click="greporte(item.IdAgente)" type="submit">Generar reporte</button>
+  <button class="btn btn-outline-success my-2 my-sm-0 "  type="submit">Generar reporte</button>
   </div>
 </div>
 </div>

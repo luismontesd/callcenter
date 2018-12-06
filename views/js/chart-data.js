@@ -1,7 +1,7 @@
-var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
+var randomScalingFactor = function(){ return Math.round(1500)};
 	
 	var lineChartData = {
-		labels : ["January","February","March","April","May","June","July"],
+		labels : ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
 		datasets : [
 			{
 				label: "My First dataset",
@@ -11,7 +11,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
 				pointHighlightStroke : "rgba(220,220,220,1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				data : [0,0,0,0,532,600,580,425,259,500,1011,125]
 			},
 			{
 				label: "My Second dataset",
@@ -21,7 +21,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
 				pointHighlightStroke : "rgba(48, 164, 255, 1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				data : [0,0,0,0,532,600,580,425,259,500,1011,125]
 			}
 		]
 
@@ -35,7 +35,7 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 				strokeColor : "rgba(220,220,220,0.8)",
 				highlightFill: "rgba(220,220,220,0.75)",
 				highlightStroke: "rgba(220,220,220,1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				data : [0,0,0,0,532,600,580,425,259,100,111,854]
 			},
 			{
 				fillColor : "rgba(48, 164, 255, 0.2)",

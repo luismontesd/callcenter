@@ -21,17 +21,12 @@
               <h1>Iniciar Sesión</h1>
               <form method="post" v-on:submit.prevent="login">
                 <div class="field-wrap">
-                <label>
-                  Correo<span class="req">*</span>
-                </label>
-                <input type="email" required autocomplete="off" name="usunom" v-model="correo"/>
+                
+                <input type="email" placeholder="Correo" required autocomplete="off" name="usunom" v-model="correo"/>
               </div>
               
               <div class="field-wrap">
-                <label>
-                  Contraseña<span class="req">*</span>
-                </label>
-                <input type="password"required autocomplete="off" name="usucontra" v-model="password"/>
+                <input type="password"required autocomplete="off" name="usucontra" placeholder="Contraseña" v-model="password"/>
               </div>
             
               

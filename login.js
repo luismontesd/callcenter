@@ -81,7 +81,7 @@ app.post("/loginAgent", function(req, res){
 
 //index-call
 app.get('/index-call', function(req,res){
-    var query = "SELECT dor.*, das.* FROM deudores dor, deudas das WHERE dor.ID = das.IdDeudor;"
+    var query = "SELECT dor.*, das.* FROM deudores dor, deudas das WHERE dor.ID = das.IdDeudor AND Region= 1228;"
     conn.query(query, function(err,results){
         if(err){
             res.send({
@@ -160,7 +160,7 @@ app.get('/sesion', function(req,res){
 })
 //reporte
 app.get('/reporte', function(req,res){
-    var query = "SELECT caps.*, pp.*, ag.* FROM capturasesion caps,planpago pp, agente ag WHERE caps.IdDeudor = pp.IdDeudor and caps.IdAgente = ag.IdAgente AND caps.Fecha= '2015-12-07';"
+    var query = "SELECT caps.*, pp.*, ag.* FROM capturasesion caps,planpago pp, agente ag WHERE caps.IdDeudor = pp.IdDeudor and caps.IdAgente = ag.IdAgente AND caps.Fecha= '2012-05-05';"
     conn.query(query, function(err,results){
         if(err){
             res.send({

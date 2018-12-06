@@ -10,14 +10,14 @@
 
 <body  >
 <div id="agente">
-<div  v-for='item in list'v-if="item.IdAgente == idAgente">
+<div  >
 <nav class="navbar navbar-light bg-light" >
   <a class="navbar-brand">
     <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
     Call Center
   </a>
   <span class="navbar-text no-seleccionable">
-      {{ item.Nombre }}
+      Luis Angel Montes de Oca Ruiz
     </span>
     <a href="index.html" ><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button></a>
 </nav>
@@ -25,7 +25,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Dashboard</h1>
+				<h1 class="page-header">DASHBOARD</h1>
 			</div>
 		</div><!--/.row-->
 		
@@ -64,7 +64,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
 						<h4>Cambio de plan</h4>
-						<div class="easypiechart" id="easypiechart-teal" data-percent="56" ><span class="percent">56%</span></div>
+						<div class="easypiechart" id="easypiechart-teal" data-percent="5" ><span class="percent">5%</span></div>
 					</div>
 				</div>
 			</div>
@@ -82,32 +82,31 @@
 			
 			<div class="col-md-6">
 				<div class="panel panel-default ">
-					<div class="panel-heading">
-						Agentes
-            <table class="table table-hover no-seleccionable">
+					<div class="panel-heading div-left-admin">
+            <div class="tb-tam scroll">
+            <table class="table table-hover no-seleccionable  " id="agente">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Nombre</th>
-                  <th scope="col">Teléfono</th>
-                  <th scope="col">RFC</th>
-                  <th scope="col">Sucursal</th>
-                  <th scope="col">Estado</th>
-                  <th scope="col">EstatusT</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Region</th>
                 </tr>
               </thead>
               <tbody id="tabladeu">
               <tr  v-for='item in list' v-on:click="pasarvariable(item.ID)">
-                  <th scope="row" id="iddeu" v-bind:value="item.ID" >{{ item.ID }}</th>
+                  <th scope="row" id="iddeu" v-bind:value="item.ID" >{{ item.IdAgente }}</th>
                   <td>{{ item.Nombre }}</td>
-                  <td>{{ item.Telefono }}</td>
-                  <td>{{ item.RFC }}</td>
-                  <td>{{ item.Sucursal }}</td>
-                  <td>{{ item.Estado }}</td>
-                  <td>{{ item.StatusT }}</td>
+                  <td>{{ item.Correo }}</td>
+                  <td>{{ item.Region }}</td>
                 </tr>
               </tbody>
             </table>
+            </div>
+            <div class="tb-tam-rep scroll ">
+              <h1>Generar reporte</h1>
+            <button class="btn btn-outline-success my-2 my-sm-0 btncent" v-on:click="greporte(1)">Generar </button>
+            </div>
 					</div>
 				</div>
 			</div><!--/.col-->
@@ -137,6 +136,32 @@
 	scaleFontColor: "#c5c7cc"
 	});
 };
-	</script>
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script>
+var urlUsers='http://localhost:3003/index-call';
+var urlAgente='http://localhost:3003/agente';
+new Vue({
+  el: '#agente',
+  created: function(){
+    this.getAgente();
+  },
+  data:{
+    list: [],
+  },
+  methods: {
+    getAgente: function(){
+      this.$http.get(urlAgente).then(function(response){
+        this.list = response.data;
+      });
+    },
+    pasarvariable: function(valor){
+      console.log(valor);
+      location.href="reporteAgente.php?id="+valor+""
+    }
+  }
+});
+</script>
 </body>
 </html>
