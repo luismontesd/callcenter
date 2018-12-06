@@ -214,6 +214,13 @@ margin: 10px;
 	margin-bottom: 10px;
 	margin-top: 10px;
 }
+.tabla-dash{
+	width: calc(100% - 200px);
+	margin-right: 100px;
+	margin-left: 100px;
+	padding-left: 100px;
+	padding-top: 50px;
+}
 /*++++++++++++++++++++++++++mapa++++++++++++++++++++++++++*/
  #description {
         font-family: Roboto;
