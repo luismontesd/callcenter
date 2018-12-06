@@ -20,11 +20,11 @@
       <span class="navbar-text no-seleccionable">
           {{ item.Nombre }}
         </span>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
+        <a href="index.html" ><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button></a>
     </nav>
     <nav aria-label="breadcrumb ">
         <ol class="breadcrumb no-seleccionable">
-          <li class="breadcrumb-item" aria-current="page"><a href="index-call.html">Deudores</a></li>
+          <li class="breadcrumb-item" aria-current="page">Deudores</li>
           <li class="breadcrumb-item active " aria-current="page">nombre del deudor</li>
         </ol>
     </nav>
@@ -65,7 +65,7 @@
     </tr>
     <tr>
       <td scope="col">Sucursal:</td>
-      <td>{{item.Sucursal}}<a href="mapa.html"><button class="btn btn-outline-success my-2 my-sm-0 isq" type="submit">Mapa</button></a></td>
+      <td>{{item.Sucursal}}<a href="mapa.php?idA=<?php echo $_GET['idA'];?>"><button class="btn btn-outline-success my-2 my-sm-0 isq" type="submit">Mapa</button></a></td>
     </tr>
     <tr>
       <td scope="col">Saldo:</td>
@@ -154,6 +154,7 @@ var urlUsers='http://localhost:3003/index-call';
 var urlUsersTel='http://localhost:3003/index-call-tel';
 var urlUserppagos='http://localhost:3003/index-call-ppagos';
 var urlUsercoment='http://localhost:3003/index-call-coment';
+var urlAgente='http://localhost:3003/agente';
 new Vue({
   el: '#tabladeu',
   created: function(){
@@ -209,7 +210,8 @@ new Vue({
   },
   data:{
     list: [],
-    iduser: <?php echo $_GET["id"];?>
+    iduser: <?php echo $_GET["id"];?>,
+    idAgente: <?php echo $_GET["idA"];?>
   },
   methods: {
     getUsers: function(){
@@ -222,7 +224,7 @@ new Vue({
     },
     pasarvariable: function(valor){
       console.log(valor);
-      location.href="planPago.php?id="+valor+"";
+      location.href="planPago.php?id="+valor+"&idA="+this.idAgente;
     }
 
   }
@@ -260,17 +262,13 @@ new Vue({
   },
   data:{
     list: [],
-    idAgente: <?php echo $_GET["idA"];?>,
+    idAgente: <?php echo $_GET["idA"];?>
   },
   methods: {
     getAgente: function(){
       this.$http.get(urlAgente).then(function(response){
         this.list = response.data;
       });
-    },
-    greporte: function(valor){
-      console.log(valor);
-      location.href="reporteAgente.php?id="+valor+"";
     }
   }
 });

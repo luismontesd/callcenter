@@ -23,7 +23,7 @@
   <span class="navbar-text no-seleccionable">
       {{ item.Nombre }}
     </span>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
+    <a href="index.html" ><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button></a>
 </nav>
 <div class="bread-ind">
   <nav aria-label="breadcrumb">
@@ -75,7 +75,7 @@ new Vue({
   },
   data:{
     list: [],
-    idAgente: <?php echo $_GET["idA"];?>,
+    idAgente: <?php echo $_GET["idA"];?>
   },
   methods: {
     getAgente: function(){
@@ -85,7 +85,7 @@ new Vue({
     },
     greporte: function(valor){
       console.log(valor);
-      location.href="reporteAgente.php?id="+valor+"";
+      location.href="reporteAgente.php?id="+valor+""
     }
   }
 });
@@ -95,7 +95,8 @@ new Vue({
     this.getUsers();
   },
   data:{
-    list: []
+    list: [],
+    idAgente: <?php echo $_GET["idA"];?>
   },
   methods: {
     getUsers: function(){
@@ -105,7 +106,7 @@ new Vue({
     },
     pasarvariable: function(valor){
       console.log(valor);
-      location.href="deudor.php?id="+valor+"";
+      location.href="deudor.php?id="+valor+"&idA="+this.idAgente;
     }
 
   }

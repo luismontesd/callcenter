@@ -9,15 +9,15 @@
 </head>
 
 <body>
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light" id="agente">
   <a class="navbar-brand">
     <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
     Call Center
   </a>
-  <span class="navbar-text no-seleccionable">
-      BLANCA   ÁLVAREZ  ÁLVAREZ
+  <span class="navbar-text no-seleccionable" v-for='item in list' v-if="item.IdAgente == idAgente">
+      {{item.Nombre}}
     </span>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
+  <a href="index.html" ><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button></a>
 </nav>
 <nav aria-label="breadcrumb ">
     <ol class="breadcrumb no-seleccionable">
@@ -120,26 +120,7 @@
           infowindowContent.children['place-address'].textContent = address;
           infowindow.open(map, marker);
         });
-
-        // Sets a listener on a radio button to change the filter type on Places
-        // Autocomplete.
-        function setupClickListener(id, types) {
-          var radioButton = document.getElementById(id);
-          radioButton.addEventListener('click', function() {
-            autocomplete.setTypes(types);
-          });
-        }
-
-        setupClickListener('changetype-all', []);
-        setupClickListener('changetype-address', ['address']);
-        setupClickListener('changetype-establishment', ['establishment']);
-        setupClickListener('changetype-geocode', ['geocode']);
-
-        document.getElementById('use-strict-bounds')
-            .addEventListener('click', function() {
-              console.log('Checkbox clicked! New state=' + this.checked);
-              autocomplete.setOptions({strictBounds: this.checked});
-            });
+        
             
       }
       function marcadores (map){
@@ -176,7 +157,28 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtsRprziIxG4nRzFBixVhtkYVcJrb40Bo&libraries=places&callback=initMap"
         async defer></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script>
+var urlAgente='http://localhost:3003/agente';
+new Vue({
+  el: '#agente',
+  created: function(){
+    this.getAgente();
+  },
+  data:{
+    list: [],
+    idAgente: <?php echo $_GET["idA"];?>
+  },
+  methods: {
+    getAgente: function(){
+      this.$http.get(urlAgente).then(function(response){
+        this.list = response.data;
+      });
+    }
+  }
+});
+</script>
 </div>
 </body>
 </html>

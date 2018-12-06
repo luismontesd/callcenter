@@ -10,15 +10,15 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
 <body>
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light" id="agente">
   <a class="navbar-brand">
     <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
     Call Center
   </a>
-  <span class="navbar-text no-seleccionable">
-      BLANCA   ÁLVAREZ  ÁLVAREZ
+  <span class="navbar-text no-seleccionable"v-for='item in list'v-if="item.IdAgente == idAgente">
+      {{item.Nombre}}
     </span>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
+    <a href="index.html" ><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button></a>
 </nav>
 <nav aria-label="breadcrumb ">
     <ol class="breadcrumb no-seleccionable">
@@ -52,6 +52,24 @@
 </div>
 <script>
 var urlUserppagos='http://localhost:3003/index-call-ppagos';
+var urlAgente='http://localhost:3003/agente';
+new Vue({
+  el: '#agente',
+  created: function(){
+    this.getAgente();
+  },
+  data:{
+    list: [],
+    idAgente: <?php echo $_GET["idA"];?>
+  },
+  methods: {
+    getAgente: function(){
+      this.$http.get(urlAgente).then(function(response){
+        this.list = response.data;
+      });
+    }
+  }
+});
 new Vue({
   el: '#tablapp',
   created: function(){
@@ -60,7 +78,8 @@ new Vue({
   data:{
     list: [],
     iduser: <?php echo $_GET["id"];?>,
-    selected: '1'
+    selected: '1',
+    idAgente: <?php echo $_GET["idA"];?>
   },
   methods: {
     getpp: function(){
@@ -73,7 +92,7 @@ new Vue({
     },
     pasarvariable: function(valor){
       console.log(valor);
-      location.href="deudor.php?id="+valor+"";
+      location.href="deudor.php?id="+valor+"&idA="+this.idAgente;
     }
   }
 });

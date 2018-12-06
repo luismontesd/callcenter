@@ -19,7 +19,7 @@
   <span class="navbar-text no-seleccionable">
   {{item.Nombre}}
     </span>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
+    <a href="index.html" ><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button></a>
 </nav>
 
 <div class="btn-bread oculto-impresion btn-imp" >
