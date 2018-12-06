@@ -19,11 +19,17 @@
     </span>
   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
 </nav>
-<nav aria-label="breadcrumb ">
-    <ol class="breadcrumb no-seleccionable">
+<div class="bread-ind">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb no-seleccionable bread-tam">
       <li class="breadcrumb-item active " aria-current="page">Deudores</li>
     </ol>
   </nav>
+</div>
+  <div class="btn-bread" id="reporte">
+  <button class="btn btn-outline-success my-2 my-sm-0 " v-on:click="greporte(1)" type="submit">Generar reporte</button>
+  </div>
+
 <div class="tabla-c">
   <table class="table table-hover no-seleccionable">
   <thead>
@@ -75,6 +81,17 @@ new Vue({
 
   }
 });
+new Vue({
+  el: '#reporte',
+  methods: {
+    greporte: function(valor){
+      console.log(valor);
+      location.href="reporteAgente.php?id="+valor+"";
+    }
+
+  }
+});
+
 
 </script>
 </body>

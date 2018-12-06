@@ -172,6 +172,13 @@ margin: 10px;
 	margin-left: 110px;
 	height: 130px;
 }
+.bread-tam{
+	width: 70%;
+	float: left;
+}
+.btn-bread{
+	margin-top: 40px;
+}
 /*mapa++++++++++++++++++++++++++*/
  #description {
         font-family: Roboto;
