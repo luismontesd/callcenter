@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
-
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
 <body>
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand">
@@ -26,30 +27,57 @@
       <li class="breadcrumb-item active " aria-current="page">Plan de pagos</li>
     </ol>
 </nav>
-<div class="tabla-c">
-  <div class="contpp">
-  <h4>Monto total</h4><h5>$ 9999999</h5>
+<div class="tabla-c" id="tablapp" >
+  <div class="contpp" v-for='item in list' v-if="item.IdDeudor == iduser">
+  <h4>Monto total</h4><h5>$ {{item.Monto}}</h5>
   <h4>Plazo</h4>
-  <select class="form-control">
-  <option>1 mes</option>
-  <option>2 meses</option>
-  <option>3 meses</option>
-  <option>4 meses</option>
-  <option>5 meses</option>
-  <option>6 meses</option>
-  <option>7 meses</option>
-  <option>8 meses</option>
-  <option>9 meses</option>
-  <option>10 meses</option>
-  <option>11 meses</option>
-  <option>12 meses</option>
+  <select class="form-control" v-model="selected">
+  <option value="1">1 mes</option>
+  <option value="2">2 meses</option>
+  <option value="3">3 meses</option>
+  <option value="4">4 meses</option>
+  <option value="5">5 meses</option>
+  <option value="6">6 meses</option>
+  <option value="7">7 meses</option>
+  <option value="8">8 meses</option>
+  <option value="9">9 meses</option>
+  <option value="10">10 meses</option>
+  <option value="11">11 meses</option>
+  <option value="12">12 meses</option>
   </select>
   <h4>Interes</h4><h5>16%</h5>
-  <h4>Monto mensual</h4><h5>$ 999</h5>
-  <button class="btn btn-outline-success my-2 my-sm-0 isq" type="submit">Guardar</button>
+  <h4>Monto mensual</h4><h5>$ {{montomensual(item.Monto)}}</h5>
+  <button class="btn btn-outline-success my-2 my-sm-0 isq" type="submit" v-on:click="pasarvariable(item.IdDeudor)">Guardar</button>
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script>
+var urlUserppagos='http://localhost:3003/index-call-ppagos';
+new Vue({
+  el: '#tablapp',
+  created: function(){
+    this.getpp();
+  },
+  data:{
+    list: [],
+    iduser: <?php echo $_GET["id"];?>,
+    selected: '1'
+  },
+  methods: {
+    getpp: function(){
+      this.$http.get(urlUserppagos).then(function(response){
+        this.list = response.data;
+      });
+    },
+    montomensual: function(monto){
+      return ((monto/this.selected)*.16)
+    },
+    pasarvariable: function(valor){
+      console.log(valor);
+      location.href="deudor.php?id="+valor+"";
+    }
+  }
+});
+</script>
 
 </body>
 </html>

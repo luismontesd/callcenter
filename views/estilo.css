@@ -13,13 +13,16 @@
 	margin-left: 100px;
 	width: 400px;
 	float: left;
-		border: 1px solid #28A745;
+	border: 1px solid #28A745;
 	border-radius: 10px 10px 10px 10px;	
-	padding: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: -10px;
 
 }
 .tabla-tel{
-	width: 300px;
+	width: 700px;
 	margin-left: 20px;
 	margin-right: 10px;
 	float: left;
@@ -125,10 +128,10 @@ a:hover{
 	height: 200px;
 }
 .mt{
-	width: 250px;
+	width: 150px;
 }
 .plz{
-	width: 150px;
+	width: 100px;
 }
 .contpp{
 	width: 500px;
@@ -153,6 +156,21 @@ margin: 10px;
 }
 .btnbm{
 	margin-left: 10px;
+}
+.montm{
+	width: 200px;
+}
+.telisq{
+	float: left;
+}
+.telmar{
+	margin-top: 35px;
+	margin-left: 60px;
+	
+}
+.martel{
+	margin-left: 110px;
+	height: 130px;
 }
 /*mapa++++++++++++++++++++++++++*/
  #description {
@@ -221,4 +239,5 @@ margin: 10px;
         font-size: 25px;
         font-weight: 500;
         padding: 6px 12px;
-      }
+	  }
+	

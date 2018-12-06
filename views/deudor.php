@@ -83,15 +83,15 @@
 </table>
 </div>
 
-<div class="ppagos">
+<div class="ppagos" id="ppagos">
   <h3>Plan de pagos</h3>
-  <table class="table no-seleccionable" id="ppagos">
+  <table class="table no-seleccionable" >
      <thead>
     <tr>
       <th scope="col" class="mt">Moto total</th>
       <th scope="col" class="plz">Plazo en meses</th>
       <th scope="col">Interes</th>
-      <th scope="col" class="coment">Monto mensual</th>
+      <th scope="col" class="montm">Monto mensual</th>
       <th scope="col">Fecha</th>
     </tr>
   </thead>
@@ -105,7 +105,7 @@
     </tr>
   </tbody>
   </table>
-  <a href="planPago.php"><button class="btn btn-outline-success my-2 my-sm-0 btned" type="submit">Editar</button></a>
+  <button v-for='ppitem in list' v-if="ppitem.IdDeudor == iduser" class="btn btn-outline-success my-2 my-sm-0 btned" type="submit" v-on:click="pasarvariable(ppitem.IdDeudor)">Editar</button>
 </div>
   <div class="tabla-com"id="coment">
   <h3>Comentarios</h3>
@@ -125,12 +125,13 @@
   </tbody>
 </table>
 </div>
-  <textarea class="form-control" id="exampleTextarea" rows="3" v-model="newcoment"></textarea>
+  <textarea class="form-control" id="exampleTextarea" rows="3" v-model="newcoment" ></textarea>
   <button class="btn btn-outline-success my-2 my-sm-0 btned" v-on:click="addcoment()" type="submit">Agregar</button>
 </div>
-<div class="tabla-tel">
+<div class="tabla-tel" id="teluser">
+  <div class="telisq martel scroll">
   <h3>Otros teléfonos</h3>
-  <table class="table no-seleccionable" id="teluser">
+  <table class="table no-seleccionable " >
   <tbody v-for='item in list' v-if="item.IdDeudor == iduser">
     <tr >
       <td>{{ item.Telefono }}</td>
@@ -138,8 +139,11 @@
     </tr>
   </tbody>
 </table>
-  <input type="number" class="form-control" id=""  placeholder="Ingrese numero">
-  <button class="btn btn-outline-success my-2 my-sm-0 btned" type="submit">Agregar</button>
+  </div>
+  <div class="telisq telmar">
+  <input type="number" class="form-control " id=""  placeholder="Ingrese numero" v-model="newtel" required>
+  <button class="btn btn-outline-success my-2 my-sm-0 btned" v-on:click="addtel()" type="submit">Agregar</button>
+  </div>
 </div>
 <script>
 var urlUsers='http://localhost:3003/index-call';
@@ -175,15 +179,23 @@ new Vue({
   },
   data:{
     list: [],
-    iduser: <?php echo $_GET["id"];?>
+    iduser: <?php echo $_GET["id"];?>,
+    newtel: ''
   },
   methods: {
     getUsers: function(){
       this.$http.get(urlUsersTel).then(function(response){
         this.list = response.data;
       });
+    },
+    addtel: function() {
+      if(this.newtel != ''){
+        this.list.push({ Telefono: this.newtel, IdDeudor: this.iduser});
+        this.newtel = '';
+      }else{
+        alert("Ingrese algun valor");
+      } 
     }
-
   }
 }); 
 new Vue({
@@ -203,6 +215,10 @@ new Vue({
     },
     montomensual: function(monto, plazo){
       return ((monto/plazo)*.16)
+    },
+    pasarvariable: function(valor){
+      console.log(valor);
+      location.href="planPago.php?id="+valor+"";
     }
 
   }
@@ -214,7 +230,8 @@ new Vue({
   },
   data:{
     list: [],
-    iduser: <?php echo $_GET["id"];?>
+    iduser: <?php echo $_GET["id"];?>,
+    newcoment: []
   },
   methods: {
     getUsers: function(){
@@ -223,10 +240,13 @@ new Vue({
       });
     },
     addcoment: function() {
-      this.list.push({ Fecha: '2018-12-06' , Comentarios: this.newcoment, IdDeudor: this.iduser});
-      this.newcoment = '';
+      if(this.newcoment != ''){
+        this.list.push({ Fecha: '2018-12-06' , Comentarios: this.newcoment, IdDeudor: this.iduser});
+        this.newcoment = '';
+      }else{
+        alert("Ingrese algun valor");
+      }
     }
-
   }
 });
 </script>

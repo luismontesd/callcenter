@@ -58,6 +58,7 @@
           center: {lat: 20.6122835, lng: -100.4115633},
           zoom: 13
         });
+        marcadores(map);
         var card = document.getElementById('pac-card');
         var input = document.getElementById('pac-input');
         var types = document.getElementById('type-selector');
@@ -66,7 +67,7 @@
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
         var autocomplete = new google.maps.places.Autocomplete(input);
-
+        
         // Bind the map's bounds (viewport) property to the autocomplete object,
         // so that the autocomplete requests use the current map bounds for the
         // bounds option in the request.
@@ -139,7 +140,39 @@
               console.log('Checkbox clicked! New state=' + this.checked);
               autocomplete.setOptions({strictBounds: this.checked});
             });
+            
       }
+      function marcadores (map){
+          var beaches = [
+          ['Calle Ezequiel Montes 3, Centro, 76000 Santiago de Querétaro, Qro.', 20.589991, -100.397402, 4],
+          ['Acceso Carretera Celaya Cuota, Virreyes, 76175 Santiago de Querétaro, Qro.', 20.577359, -100.406544, 5],
+          ['Av. 5 de Febrero 9846, Jurica, 76100 Santiago de Querétaro, Qro.', 20.651106, -100.432607, 3],
+          ['Paseo de Libero 104, Manzanares, Juriquilla, Qro.', 20.707068, -100.443490, 2],
+          ['Río Bravo 2001, colonia El Pocito, 76902 Santiago de Querétaro, Qro.', 20.557332, -100.418215, 1]
+        ];
+        var image = {
+          url: 'img/flag.png',
+          size: new google.maps.Size(50, 32),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(0, 32)
+        };
+        var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+        for (var i = 0; i < beaches.length; i++) {
+          var beach = beaches[i];
+          var marker = new google.maps.Marker({
+            position: {lat: beach[1], lng: beach[2]},
+            map: map,
+            icon: image,
+            shape: shape,
+            title: beach[0],
+            zIndex: beach[3],
+            content: beach[0]
+          });
+        }
+        }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtsRprziIxG4nRzFBixVhtkYVcJrb40Bo&libraries=places&callback=initMap"
         async defer></script>
