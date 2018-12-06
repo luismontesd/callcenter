@@ -1,16 +1,6 @@
 
 
-<?php 
-session_start();
 
-$usuario = $_POST['usonom'];
-$pass = $_POST['usocontra'];
-
-if(empty($usuario) || empty($pass)){
-	header("Location: http://localhost:9999/256899/callcenter/views/index.html");
-	exit();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,14 +12,16 @@ if(empty($usuario) || empty($pass)){
   <link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
 
-<body id="vueapp">
-<nav class="navbar navbar-light bg-light">
+<body  >
+<div id="agente">
+<div  v-for='item in list'v-if="item.IdAgente == idAgente">
+<nav class="navbar navbar-light bg-light" >
   <a class="navbar-brand">
     <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
     Call Center
   </a>
   <span class="navbar-text no-seleccionable">
-      {{ item.nombre }}
+      {{ item.Nombre }}
     </span>
   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
 </nav>
@@ -41,9 +33,10 @@ if(empty($usuario) || empty($pass)){
   </nav>
 </div>
   <div class="btn-bread" id="reporte">
-  <button class="btn btn-outline-success my-2 my-sm-0 " v-on:click="greporte(1)" type="submit">Generar reporte</button>
+  <button class="btn btn-outline-success my-2 my-sm-0 " v-on:click="greporte(item.IdAgente)" type="submit">Generar reporte</button>
   </div>
-
+</div>
+</div>
 <div class="tabla-c">
   <table class="table table-hover no-seleccionable">
   <thead>
@@ -74,6 +67,28 @@ if(empty($usuario) || empty($pass)){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
 <script>
 var urlUsers='http://localhost:3003/index-call';
+var urlAgente='http://localhost:3003/agente';
+new Vue({
+  el: '#agente',
+  created: function(){
+    this.getAgente();
+  },
+  data:{
+    list: [],
+    idAgente: <?php echo $_GET["idA"];?>,
+  },
+  methods: {
+    getAgente: function(){
+      this.$http.get(urlAgente).then(function(response){
+        this.list = response.data;
+      });
+    },
+    greporte: function(valor){
+      console.log(valor);
+      location.href="reporteAgente.php?id="+valor+"";
+    }
+  }
+});
 new Vue({
   el: '#tabladeu',
   created: function(){
@@ -93,15 +108,6 @@ new Vue({
       location.href="deudor.php?id="+valor+"";
     }
 
-  }
-});
-new Vue({
-  el: '#reporte',
-  methods: {
-    greporte: function(valor){
-      console.log(valor);
-      location.href="reporteAgente.php?id="+valor+"";
-    }
   }
 });
 

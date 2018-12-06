@@ -51,9 +51,8 @@ app.post("/loginAgent", function(req, res){
 
     if(conn){
         var validar = "SELECT * FROM agente WHERE correo = '" + req.body.correo + "' AND password = '" + req.body.password + "'"
-        var idAgente=''
+        
         conn.query(validar, function(err,results){
-            idAgente= results[0].IdAgente
             if(err){
                 res.send({
                     "code": 400,
@@ -61,8 +60,10 @@ app.post("/loginAgent", function(req, res){
                 });
             }else {
                 if (results.length > 0) {
+                    console.log(results[0].IdAgente)
                     res.send({
-                        "idAgente":this.idAgente
+                        "code": 200,
+                        "idAgente":results[0].IdAgente
                     });
                     //res.redirect('/deudores')
                 }else{
@@ -72,9 +73,8 @@ app.post("/loginAgent", function(req, res){
                     });
                 }
             }
-            
-            console.log(results[0].IdAgente)
         })
+        return validar
         //console.log(validar)
     }
 })
@@ -157,6 +157,34 @@ app.get('/sesion', function(req,res){
         }
     })
     
+})
+//reporte
+app.get('/reporte', function(req,res){
+    var query = "SELECT caps.*, pp.*, ag.* FROM capturasesion caps,planpago pp, agente ag WHERE caps.IdDeudor = pp.IdDeudor and caps.IdAgente = ag.IdAgente AND caps.Fecha= '2015-12-07';"
+    conn.query(query, function(err,results){
+        if(err){
+            res.send({
+                "Message": "Error"
+            })
+        }else{
+            console.log("Respuesta exitosa")
+            res.send(results)
+        }
+    })
+})
+//agente
+app.get('/agente', function(req,res){
+    var query = "SELECT * FROM agente;"
+    conn.query(query, function(err,results){
+        if(err){
+            res.send({
+                "Message": "Error"
+            })
+        }else{
+            console.log("Respuesta exitosa")
+            res.send(results)
+        }
+    })
 })
 //Sesiones
 /*var sesion = new Vue({

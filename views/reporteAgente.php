@@ -9,14 +9,15 @@
 </head>
 
 <body>
-
+<div id="reporte" >
+<div v-for='item in list' v-if="item.IdAgente == idAgente">
 <nav class="navbar navbar-light bg-light oculto-impresion">
   <a class="navbar-brand">
     <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
     Call Center
   </a>
   <span class="navbar-text no-seleccionable">
-      BLANCA   ÁLVAREZ  ÁLVARrEZ
+  {{item.Nombre}}
     </span>
   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
 </nav>
@@ -24,8 +25,8 @@
 <div class="btn-bread oculto-impresion btn-imp" >
   <button class="btn btn-outline-success my-2 my-sm-0 " onclick="javascript:window.print()" type="submit">Imprimir reporte</button>
 </div>
-<div id="reporte">
-<div class="contreporte"  v-for='item in list' v-if="item.IdAgente == idAgente">
+<div >
+<div class="contreporte"  >
   <div class="rep-barra">
   <a class="navbar-brand">
     <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
@@ -61,13 +62,14 @@
         </table>
     </div>
 </div>
-
-
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
 <script>
 
 var urlReport='http://localhost:3003/reporte';
+
 new Vue({
   el: '#reporte',
   created: function(){
