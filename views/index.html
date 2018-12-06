@@ -107,7 +107,8 @@ new Vue({
       }).then(function(response){
         var code = response.data.code
         if(code == 200){
-          window.location.href = 'http://localhost:9999/256899/callcenter/views/index-call.html';
+          window.location.href = 'http://localhost/callcenter/views/index-call.html'
+          //window.location.href = 'http://localhost:9999/256899/callcenter/views/index-call.html';
         }else if(code == 204){
           alert("Datos incorrectos, intenta de nuevo")
         }

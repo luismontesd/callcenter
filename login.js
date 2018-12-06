@@ -24,7 +24,7 @@ const conn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'bdcall',
+    database: 'callcenter',
 
 })
 
@@ -51,8 +51,9 @@ app.post("/loginAgent", function(req, res){
 
     if(conn){
         var validar = "SELECT * FROM agente WHERE correo = '" + req.body.correo + "' AND password = '" + req.body.password + "'"
-        
+        var idAgente=''
         conn.query(validar, function(err,results){
+            idAgente= results[0].IdAgente
             if(err){
                 res.send({
                     "code": 400,
@@ -61,8 +62,7 @@ app.post("/loginAgent", function(req, res){
             }else {
                 if (results.length > 0) {
                     res.send({
-                        "code": 200,
-                        "message": "Inicio de sesión correcto"
+                        "idAgente":this.idAgente
                     });
                     //res.redirect('/deudores')
                 }else{
@@ -72,9 +72,9 @@ app.post("/loginAgent", function(req, res){
                     });
                 }
             }
-            console.log(validar)
+            
+            console.log(results[0].IdAgente)
         })
-        return validar
         //console.log(validar)
     }
 })
