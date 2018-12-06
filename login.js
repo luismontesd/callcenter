@@ -16,8 +16,7 @@ const conn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    port: '3306',
-    database: 'callcenterdb',
+    database: 'callcenter',
     multipleStatements: true
 
 })
