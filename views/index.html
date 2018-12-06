@@ -17,23 +17,21 @@
 
   <div class="form">
       <div class="tab-content">
-
-
-          <div id="signup">   
+          <div id="signup">  
               <h1>Iniciar Sesión</h1>
-              <form action="/" method="post">
+              <form method="post" v-on:submit.prevent="login">
                 <div class="field-wrap">
                 <label>
                   Correo<span class="req">*</span>
                 </label>
-                <input type="email"required autocomplete="off" name="usunom" />
+                <input type="email" required autocomplete="off" name="usunom" v-model="correo"/>
               </div>
               
               <div class="field-wrap">
                 <label>
                   Contraseña<span class="req">*</span>
                 </label>
-                <input type="password"required autocomplete="off" name="usucontra" />
+                <input type="password"required autocomplete="off" name="usucontra" v-model="password"/>
               </div>
             
               
@@ -86,11 +84,63 @@
       
 </div> <!-- /form -->
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script  src="js/index.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src='https://unpkg.com/vue-router@2.0.0/dist/vue-router.js'></script>
+<script>
+//import axios from 'axios'
+    /*function login(){
+      var url = 'http://localhost:3003/loginAgent';
+      //var redirect = 'http://localhost:3003/deudores';
+      axios.post(url, {
+        correo: this.correo,
+        password: this.password
+        
+      })
+      .then(function(response){
+        console.log(response)
+        //redirect;
+      })
+      .catch(function(error){
+        console.log(error)
+      });
+      console.log(correo, password)
+    }*/
   
 
-    <script  src="js/index.js"></script>
+var urlLoginAgent='http://localhost:3003/loginAgent';
+var redirectDeudores='http://localhost:3003/deudores';
 
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: routes
+})
+new Vue({
+  el: '#signup',
+  data:{
+    correo: '',
+    password: ''
+  },
+  methods: {
+    login: function(){
+      this.$http.post('http://localhost:3003/loginAgent', {
+        correo: this.correo,
+        password: this.password
+      }).then(function(response){
+        var code = response.data.code
+        if(code == 200){
+          router.push('/deudores')
+          //this.router.push('http://localhost:3003/deudores')
+        }
+      });
+    }
+  }
+});
+</script>
 
 
 

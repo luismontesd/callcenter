@@ -5,13 +5,21 @@ const mysql = require('mysql')
 const routes = require('./routes')
 //const http = require('http')
 const path = require('path')
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 //var path = __dirname + '/views/';
 
 const conn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    database: 'callcenter'
+    password: '',
+    port: '3306',
+    database: 'callcenterdb',
+    multipleStatements: true
+
 })
 
 //app.use(morgan('combined'))
@@ -30,34 +38,66 @@ app.get('/', function(req,res){
     })
 })
 
-app.post('/loginAdmin', function(req,res){
-    var correo = req.body.email
-    var contrasena = req.body.password
-
-    var query = "SELECT * FROM agente WHERE nombres"
-})
-
 //Inicio de sesion
 app.post("/loginAgent", function(req, res){
-    var correo = req.body.email
+    var correo = req.body.correo
     var contrasena = req.body.password
-    //var query = "SELECT * FROM agentes WHERE correo = '" + correo + "' AND contrasena = '" + password + "'"
-    var query = "SELECT * FROM agente"
-    conn.query(query, function(err){
+
+    if(conn){
+        var validar = "SELECT * FROM agente WHERE correo = '" + req.body.correo + "' AND password = '" + req.body.password + "'"
+        conn.query(validar, function(err,results){
+            if(err){
+                res.send({
+                    "code": 400,
+                    "message": "Error"
+                });
+            }else {
+                if (results.length > 0) {
+                    res.send({
+                        "code": 200,
+                        "message": "Inicio de sesión correcto"
+                    });
+                    //res.redirect('/deudores')
+                }else{
+                    res.send({
+                        "code": 204,
+                        "message": "Datos incorrectos"
+                    });
+                }
+            }
+        })
+    }
+})
+    //console.log(correo, contrasena)
+    //console.log(req.param('email'))
+    /*res.send({
+        correo: correo,
+        contrasena: contrasena
+    }) */
+    /*var validar = "SELECT * FROM agente WHERE correo = '" + req.body.correo + "' AND password = '" + req.body.password + "'"
+    //var query = "SELECT * FROM agente"
+    conn.query(validar, function(err, results){
         if(err){
             res.send({
                 "code": 400,
                 "message": "Error"
-            })
-        }else{
-            res.send({
-                "code": 200,
-                "message": "Inicio de sesion exitoso"
-            })
+            });
+        }else {
+            if (results.length > 0) {
+                res.send({
+                    "code": 200,
+                    "message": "Inicio de sesión correcto"
+                });
+            }else{
+                res.send({
+                    "code": 200,
+                    "message": "Inicio de sesion exitoso"
+                });
+                res.redirect("/deudores")
+            }
         }
-        //res.redirect("/deudores")
     })
-})
+})*/
 
 
 //index-call
