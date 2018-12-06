@@ -10,22 +10,26 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
 <body>
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand">
-    <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
-    Call Center
-  </a>
-  <span class="navbar-text no-seleccionable">
-      BLANCA   ÁLVAREZ  ÁLVAREZ
-    </span>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
-</nav>
-<nav aria-label="breadcrumb ">
-    <ol class="breadcrumb no-seleccionable">
-      <li class="breadcrumb-item" aria-current="page"><a href="index-call.html">Deudores</a></li>
-      <li class="breadcrumb-item active " aria-current="page">nombre del deudor</li>
-    </ol>
-</nav>
+<div id="agente">
+  <div  v-for='item in list'v-if="item.IdAgente == idAgente">
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand">
+        <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
+        Call Center
+      </a>
+      <span class="navbar-text no-seleccionable">
+          {{ item.Nombre }}
+        </span>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
+    </nav>
+    <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb no-seleccionable">
+          <li class="breadcrumb-item" aria-current="page"><a href="index-call.html">Deudores</a></li>
+          <li class="breadcrumb-item active " aria-current="page">nombre del deudor</li>
+        </ol>
+    </nav>
+  </div>
+</div>
 <div class="tabla-d">
   <h3>Datos generales</h3>
   <table class="table  no-seleccionable" id="tabladeu" >
@@ -246,6 +250,27 @@ new Vue({
       }else{
         alert("Ingrese algun valor");
       }
+    }
+  }
+});
+new Vue({
+  el: '#agente',
+  created: function(){
+    this.getAgente();
+  },
+  data:{
+    list: [],
+    idAgente: <?php echo $_GET["idA"];?>,
+  },
+  methods: {
+    getAgente: function(){
+      this.$http.get(urlAgente).then(function(response){
+        this.list = response.data;
+      });
+    },
+    greporte: function(valor){
+      console.log(valor);
+      location.href="reporteAgente.php?id="+valor+"";
     }
   }
 });
