@@ -12,12 +12,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //var path = __dirname + '/views/';
 
+/*const conn = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'callcenterdb',
+
+})*/
+
 const conn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'callcenter',
-    multipleStatements: true
+    database: 'bdcall',
 
 })
 
@@ -44,6 +51,7 @@ app.post("/loginAgent", function(req, res){
 
     if(conn){
         var validar = "SELECT * FROM agente WHERE correo = '" + req.body.correo + "' AND password = '" + req.body.password + "'"
+        
         conn.query(validar, function(err,results){
             if(err){
                 res.send({
@@ -64,40 +72,12 @@ app.post("/loginAgent", function(req, res){
                     });
                 }
             }
+            console.log(validar)
         })
+        return validar
+        //console.log(validar)
     }
 })
-    //console.log(correo, contrasena)
-    //console.log(req.param('email'))
-    /*res.send({
-        correo: correo,
-        contrasena: contrasena
-    }) */
-    /*var validar = "SELECT * FROM agente WHERE correo = '" + req.body.correo + "' AND password = '" + req.body.password + "'"
-    //var query = "SELECT * FROM agente"
-    conn.query(validar, function(err, results){
-        if(err){
-            res.send({
-                "code": 400,
-                "message": "Error"
-            });
-        }else {
-            if (results.length > 0) {
-                res.send({
-                    "code": 200,
-                    "message": "Inicio de sesión correcto"
-                });
-            }else{
-                res.send({
-                    "code": 200,
-                    "message": "Inicio de sesion exitoso"
-                });
-                res.redirect("/deudores")
-            }
-        }
-    })
-})*/
-
 
 //index-call
 app.get('/index-call', function(req,res){
@@ -113,6 +93,7 @@ app.get('/index-call', function(req,res){
         }
     })
 })
+
 //index-call telefoonos
 app.get('/index-call-tel', function(req,res){
     var query = "SELECT * FROM histtelefono"
@@ -127,6 +108,7 @@ app.get('/index-call-tel', function(req,res){
         }
     })
 })
+
 //index-call planpagos
 app.get('/index-call-ppagos', function(req,res){
     var query = "SELECT * FROM planpago"
@@ -141,6 +123,7 @@ app.get('/index-call-ppagos', function(req,res){
         }
     })
 })
+
 //index-call comentarios
 app.get('/index-call-coment', function(req,res){
     var query = "SELECT * FROM  capturasesion"
@@ -156,21 +139,59 @@ app.get('/index-call-coment', function(req,res){
     })
 })
 
-//reporte
-app.get('/reporte', function(req,res){
-    var query = "SELECT caps.*, pp.*, ag.* FROM capturasesion caps,planpago pp, agente ag WHERE caps.IdDeudor = pp.IdDeudor and caps.IdAgente = ag.IdAgente AND caps.Fecha= '2015-12-07';"
-    conn.query(query, function(err,results){
+//Datos sesion
+app.get('/sesion', function(req,res){
+    var correo = req.body.correo
+    var password = req.body.password
+    var consulta = "SELECT id FROM agente WHERE correo LIKE '" + correo + "' AND password LIKE '" + password + "'"
+    conn.query(consulta, function(err, results){
         if(err){
             res.send({
                 "Message": "Error"
             })
         }else{
+            res.send({
+                "id": consulta
+            })
             console.log("Respuesta exitosa")
-            res.send(results)
         }
     })
+    
 })
-//Cerrar sesion
+//Sesiones
+/*var sesion = new Vue({
+    el: '#vueapp',
+    data: {
+      email: '',
+      password: '',
+      regs: []
+        },
+    methods: {
+  
+      reloadList: function() {
+           this.$http.get('data.php').then(function(response){
+                  this.regs = response.body;
+                }, function(){
+                  alert('Error!');
+                });
+          },
+  
+      login: function() {
+          this.$http.post('data.php',{ 
+              email: this.email, 
+              password: this.password 
+              }).then(function(response){
+                      this.regs = response.body;
+                  this.email="";
+                  this.password="";
+                        });
+          }
+  
+      },
+    created: function() {
+      this.reloadList();
+      }
+  });*/
 
 app.listen(3003, ( ) => {
     console.log("Listening on 3003")

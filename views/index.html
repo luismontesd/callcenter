@@ -91,34 +91,8 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src='https://unpkg.com/vue-router@2.0.0/dist/vue-router.js'></script>
 <script>
-//import axios from 'axios'
-    /*function login(){
-      var url = 'http://localhost:3003/loginAgent';
-      //var redirect = 'http://localhost:3003/deudores';
-      axios.post(url, {
-        correo: this.correo,
-        password: this.password
-        
-      })
-      .then(function(response){
-        console.log(response)
-        //redirect;
-      })
-      .catch(function(error){
-        console.log(error)
-      });
-      console.log(correo, password)
-    }*/
-  
 
 var urlLoginAgent='http://localhost:3003/loginAgent';
-var redirectDeudores='http://localhost:3003/deudores';
-
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  routes: routes
-})
 new Vue({
   el: '#signup',
   data:{
@@ -133,17 +107,35 @@ new Vue({
       }).then(function(response){
         var code = response.data.code
         if(code == 200){
-          router.push('/deudores')
-          //this.router.push('http://localhost:3003/deudores')
+          window.location.href = 'http://localhost:9999/256899/callcenter/views/index-call.html';
+        }else if(code == 204){
+          alert("Datos incorrectos, intenta de nuevo")
         }
       });
     }
   }
 });
+
+
+/*var urlSesion = "http://localhost:3003/256899/callcenter/views/sesion"
+new Vue({ 
+  el: '#vueapp',
+  created: function(){
+    this.getSesion();
+  },
+  data: {
+    id: ''
+  },
+  methods: {
+    getSesion: function(){
+      this.$http.get(urlSesion).then(function(response){
+        this.id = reponse.data.id
+        //this.list = response.data;
+      });
+    },
+  }
+})*/
+
 </script>
-
-
-
 </body>
-
 </html>

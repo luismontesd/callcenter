@@ -1,3 +1,17 @@
+
+
+<?php 
+session_start();
+
+$usuario = $_POST['usonom'];
+$pass = $_POST['usocontra'];
+
+if(empty($usuario) || empty($pass)){
+	header("Location: http://localhost:9999/256899/callcenter/views/index.html");
+	exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,14 +22,14 @@
   <link rel="stylesheet" type="text/css" href="estilo.css">
 </head>
 
-<body>
+<body id="vueapp">
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand">
     <img src="img/call-center.png" width="30" height="30" class="d-inline-block align-top no-seleccionable" alt="">
     Call Center
   </a>
   <span class="navbar-text no-seleccionable">
-      BLANCA   ÁLVAREZ  ÁLVARrEZ
+      {{ item.nombre }}
     </span>
   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cerrar sesión</button>
 </nav>
@@ -58,6 +72,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="./app.js"></script>
 <script>
 var urlUsers='http://localhost:3003/index-call';
 new Vue({
@@ -88,10 +103,8 @@ new Vue({
       console.log(valor);
       location.href="reporteAgente.php?id="+valor+"";
     }
-
   }
 });
-
 
 </script>
 </body>
